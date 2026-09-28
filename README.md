@@ -58,9 +58,7 @@ The project provides a web-based interface where users can interact with differe
 
 ## 📁 Project Structure
 
-text
-AIVision/
-│
+
 ├── screenshots/
 │   ├── AnalyticsScreenshot.png
 │   ├── DashboardScreenshot.png

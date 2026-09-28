@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Machine Learning — AIVision</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <div class="logo">
+            <span class="logo-icon">AI</span>
+            <span>Vision</span>
+        </div>
+
+        <div class="nav-menu">
+
+            <a href="{{ url_for('index') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('ml_page') }}" class="active">
+                Machine Learning
+            </a>
+
+            <a href="{{ url_for('deep_learning') }}" >
+                Deep Learning
+            </a>
+
+            <a href="{{ url_for('analytics') }}">
+                Analytics
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- Main content -->
+
+<div class="container">
+
+<div class="page-header">
+    <h1>Machine Learning</h1>
+
+    <p>
+        Train and evaluate machine learning models using your loaded dataset.
+    </p>
+</div>
+
+
+<!-- Model cards -->
+<div class="grid">
+
+    <!-- Classification -->
+    <div class="card">
+        <h3>Classification</h3>
+
+        <p>
+            Predict categories using a Random Forest classification model.
+        </p>
+
+        <button class="btn btn-primary" onclick="runClassification()">
+            Run Classification
+        </button>
+    </div>
+
+
+    <!-- Regression -->
+    <div class="card">
+        <h3>Regression</h3>
+
+        <p>
+            Predict numerical values using Random Forest regression.
+        </p>
+
+        <button class="btn btn-primary" onclick="runRegression()">
+            Run Regression
+        </button>
+    </div>
+
+
+    <!-- Anomaly Detection -->
+    <div class="card">
+        <h3>Anomaly Detection</h3>
+
+        <p>
+            Detect unusual observations in your dataset.
+        </p>
+
+        <button class="btn btn-primary" onclick="runAnomaly()">
+            Detect Anomalies
+        </button>
+    </div>
+
+
+    <!-- Clustering -->
+    <div class="card">
+        <h3>Clustering</h3>
+
+        <p>
+            Group similar observations using K-Means clustering.
+        </p>
+
+        <button class="btn btn-primary" onclick="runClustering()">
+            Run Clustering
+        </button>
+    </div>
+
+</div>
+
+
+<!-- Status -->
+<div id="statusMessage" class="status"></div>
+
+
+<!-- Results -->
+<div class="card" style="margin-top: 24px;">
+
+    <h2>Model Results</h2>
+
+    <div id="results" class="result-panel">
+
+        <div class="result-empty">
+            <div class="icon-circle">AI</div>
+
+            <h3>No model results yet</h3>
+
+            <p>
+                Select a machine learning model above to begin.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<script>
+
+/* ============================================================
+   STATUS MESSAGE
+   ============================================================ */
+
+function showStatus(message, type) {
+
+    const element = document.getElementById("statusMessage");
+
+    element.className = "status show " + type;
+
+    element.textContent = message;
+}
+
+
+/* ============================================================
+   LOADING MESSAGE
+   ============================================================ */
+
+function showLoading(message) {
+
+    document.getElementById("results").innerHTML = `
+        <div class="result-empty">
+
+            <div class="spinner"></div>
+
+            <h3>${message}</h3>
+
+            <p>Please wait while the model processes the data.</p>
+
+        </div>
+    `;
+}
+
+
+/* ============================================================
+   CLASSIFICATION RESULTS
+   ============================================================ */
+
+function displayClassification(data) {
+
+    const classes = data.classes || [];
+
+    const classBadges = classes.map(category => `
+        <span class="badge">${category}</span>
+    `).join("");
+
+    document.getElementById("results").innerHTML = `
+
+        <div class="result-header">
+
+            <div>
+                <span class="result-label">MODEL</span>
+
+                <h3>${data.model}</h3>
+            </div>
+
+            <span class="status success show">
+                ✓ Completed
+            </span>
+
+        </div>
+
+
+        <div class="result-highlight">
+
+            <span>Accuracy</span>
+
+            <strong>${data.accuracy}%</strong>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="result-stat">
+
+                <span>Training Samples</span>
+
+                <strong>${data.training_samples}</strong>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <span>Testing Samples</span>
+
+                <strong>${data.testing_samples}</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-section">
+
+            <h4>Classes Detected</h4>
+
+            <div class="badge-container">
+                ${classBadges}
+            </div>
+
+        </div>
+
+
+        <div class="result-message">
+
+            <strong>Result:</strong>
+
+            ${data.message}
+
+        </div>
+
+    `;
+}
+
+
+/* ============================================================
+   REGRESSION RESULTS
+   ============================================================ */
+
+function displayRegression(data) {
+
+    document.getElementById("results").innerHTML = `
+
+        <div class="result-header">
+
+            <div>
+                <span class="result-label">MODEL</span>
+
+                <h3>${data.model}</h3>
+            </div>
+
+            <span class="status success show">
+                ✓ Completed
+            </span>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="result-stat">
+
+                <span>Mean Squared Error</span>
+
+                <strong>${data.mean_squared_error}</strong>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <span>Root Mean Squared Error</span>
+
+                <strong>${data.root_mean_squared_error}</strong>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <span>Training Samples</span>
+
+                <strong>${data.training_samples}</strong>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <span>Testing Samples</span>
+
+                <strong>${data.testing_samples}</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-message">
+
+            <strong>Result:</strong>
+
+            ${data.message}
+
+        </div>
+
+    `;
+}
+
+
+/* ============================================================
+   ANOMALY DETECTION RESULTS
+   ============================================================ */
+
+function displayAnomaly(data) {
+
+    document.getElementById("results").innerHTML = `
+
+        <div class="result-header">
+
+            <div>
+                <span class="result-label">MODEL</span>
+
+                <h3>${data.model}</h3>
+            </div>
+
+            <span class="status success show">
+                ✓ Completed
+            </span>
+
+        </div>
+
+
+        <div class="result-highlight">
+
+            <span>Anomalies Detected</span>
+
+            <strong>${data.anomalies}</strong>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="result-stat">
+
+                <span>Total Samples</span>
+
+                <strong>${data.total_samples}</strong>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <span>Normal Samples</span>
+
+                <strong>${data.normal_samples}</strong>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <span>Anomaly Percentage</span>
+
+                <strong>${data.anomaly_percentage}%</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-message">
+
+            <strong>Result:</strong>
+
+            ${data.message}
+
+        </div>
+
+    `;
+}
+
+
+/* ============================================================
+   CLUSTERING RESULTS
+   ============================================================ */
+
+function displayClustering(data) {
+
+    let clusterHTML = "";
+
+    for (const [cluster, count] of Object.entries(data.cluster_counts)) {
+
+        clusterHTML += `
+
+            <div class="result-stat">
+
+                <span>Cluster ${cluster}</span>
+
+                <strong>${count}</strong>
+
+            </div>
+
+        `;
+    }
+
+
+    document.getElementById("results").innerHTML = `
+
+        <div class="result-header">
+
+            <div>
+                <span class="result-label">MODEL</span>
+
+                <h3>${data.model}</h3>
+            </div>
+
+            <span class="status success show">
+                ✓ Completed
+            </span>
+
+        </div>
+
+
+        <div class="result-highlight">
+
+            <span>Clusters Created</span>
+
+            <strong>${data.number_of_clusters}</strong>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            ${clusterHTML}
+
+        </div>
+
+
+        <div class="result-stat">
+
+            <span>Total Samples</span>
+
+            <strong>${data.total_samples}</strong>
+
+        </div>
+
+
+        <div class="result-message">
+
+            <strong>Result:</strong>
+
+            ${data.message}
+
+        </div>
+
+    `;
+}
+
+
+/* ============================================================
+   ERROR DISPLAY
+   ============================================================ */
+
+function displayError(message) {
+
+    document.getElementById("results").innerHTML = `
+
+        <div class="result-empty">
+
+            <div class="icon-circle">!</div>
+
+            <h3>Model Error</h3>
+
+            <p>${message}</p>
+
+        </div>
+
+    `;
+}
+
+
+/* ============================================================
+   CLASSIFICATION
+   ============================================================ */
+
+async function runClassification() {
+
+    showStatus("Running classification...", "info");
+
+    showLoading("Training classification model...");
+
+    try {
+
+        const response = await fetch("/api/ml/classify", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({})
+
+        });
+
+
+        const data = await response.json();
+
+
+        if (data.success) {
+
+            displayClassification(data);
+
+            showStatus(
+                "Classification completed successfully.",
+                "success"
+            );
+
+        } else {
+
+            displayError(data.error || "Classification failed.");
+
+            showStatus(
+                data.error || "Classification failed.",
+                "error"
+            );
+
+        }
+
+    } catch (error) {
+
+        displayError(error.message);
+
+        showStatus(
+            "Could not connect to the Flask server.",
+            "error"
+        );
+
+    }
+}
+
+
+/* ============================================================
+   REGRESSION
+   ============================================================ */
+
+async function runRegression() {
+
+    showStatus("Running regression...", "info");
+
+    showLoading("Training regression model...");
+
+    try {
+
+        const response = await fetch("/api/ml/regression", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({})
+
+        });
+
+
+        const data = await response.json();
+
+
+        if (data.success) {
+
+            displayRegression(data);
+
+            showStatus(
+                "Regression completed successfully.",
+                "success"
+            );
+
+        } else {
+
+            displayError(data.error || "Regression failed.");
+
+            showStatus(
+                data.error || "Regression failed.",
+                "error"
+            );
+
+        }
+
+    } catch (error) {
+
+        displayError(error.message);
+
+        showStatus(
+            "Could not connect to the Flask server.",
+            "error"
+        );
+
+    }
+}
+
+
+/* ============================================================
+   ANOMALY DETECTION
+   ============================================================ */
+
+async function runAnomaly() {
+
+    showStatus("Detecting anomalies...", "info");
+
+    showLoading("Analysing dataset for anomalies...");
+
+    try {
+
+        const response = await fetch("/api/ml/anomaly", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({})
+
+        });
+
+
+        const data = await response.json();
+
+
+        if (data.success) {
+
+            displayAnomaly(data);
+
+            showStatus(
+                "Anomaly detection completed successfully.",
+                "success"
+            );
+
+        } else {
+
+            displayError(data.error || "Anomaly detection failed.");
+
+            showStatus(
+                data.error || "Anomaly detection failed.",
+                "error"
+            );
+
+        }
+
+    } catch (error) {
+
+        displayError(error.message);
+
+        showStatus(
+            "Could not connect to the Flask server.",
+            "error"
+        );
+
+    }
+}
+
+
+/* ============================================================
+   CLUSTERING
+   ============================================================ */
+
+async function runClustering() {
+
+    showStatus("Running clustering...", "info");
+
+    showLoading("Grouping similar data points...");
+
+    try {
+
+        const response = await fetch("/api/ml/clustering", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({})
+
+        });
+
+
+        const data = await response.json();
+
+
+        if (data.success) {
+
+            displayClustering(data);
+
+            showStatus(
+                "Clustering completed successfully.",
+                "success"
+            );
+
+        } else {
+
+            displayError(data.error || "Clustering failed.");
+
+            showStatus(
+                data.error || "Clustering failed.",
+                "error"
+            );
+
+        }
+
+    } catch (error) {
+
+        displayError(error.message);
+
+        showStatus(
+            "Could not connect to the Flask server.",
+            "error"
+        );
+
+    }
+}
+
+</script>
+
+</body>
+</html>

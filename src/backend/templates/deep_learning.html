@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Deep Learning - AIVision</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION BAR
+         ========================= -->
+
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <div class="logo">
+            <span class="logo-icon">AI</span>
+            <span>Vision</span>
+        </div>
+
+        <div class="nav-menu">
+
+            <a href="{{ url_for('index') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('ml_page') }}">
+                Machine Learning
+            </a>
+
+            <a href="{{ url_for('deep_learning') }}" class="active">
+                Deep Learning
+            </a>
+
+            <a href="{{ url_for('analytics') }}">
+                Analytics
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN CONTENT
+         ========================= -->
+
+    <main class="container">
+
+        <!-- Page Header -->
+
+        <div class="page-header">
+
+            <div>
+
+                <span class="badge">
+                    DEEP LEARNING
+                </span>
+
+                <h1>
+                    Neural Network Training
+                </h1>
+
+                <p>
+                    Train the AIVision neural network using your current dataset.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             NEURAL NETWORK CARD
+             ========================= -->
+
+        <section class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Neural Network
+                        </h2>
+
+                        <p>
+                            Configure and train the neural network model.
+                        </p>
+
+                    </div>
+
+                    <div class="icon-circle">
+                        NN
+                    </div>
+
+                </div>
+
+
+                <!-- Architecture -->
+
+                <div class="nn-diagram">
+
+                    <div class="nn-layer">
+
+                        <div class="nn-node">
+                            1
+                        </div>
+
+                        <div class="nn-node">
+                            2
+                        </div>
+
+                        <div class="nn-node">
+                            3
+                        </div>
+
+                        <span>
+                            Input Layer
+                        </span>
+
+                    </div>
+
+
+                    <div class="nn-arrow">
+                        →
+                    </div>
+
+
+                    <div class="nn-layer">
+
+                        <div class="nn-node">
+                            1
+                        </div>
+
+                        <div class="nn-node">
+                            2
+                        </div>
+
+                        <div class="nn-node">
+                            3
+                        </div>
+
+                        <div class="nn-node">
+                            4
+                        </div>
+
+                        <div class="nn-node">
+                            5
+                        </div>
+
+                        <div class="nn-node">
+                            6
+                        </div>
+
+                        <div class="nn-node">
+                            7
+                        </div>
+
+                        <div class="nn-node">
+                            8
+                        </div>
+
+                        <span>
+                            Hidden Layer
+                        </span>
+
+                    </div>
+
+
+                    <div class="nn-arrow">
+                        →
+                    </div>
+
+
+                    <div class="nn-layer">
+
+                        <div class="nn-node">
+                            1
+                        </div>
+
+                        <span>
+                            Output Layer
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Architecture Information -->
+
+                <div class="stats-grid">
+
+                    <div class="result-stat">
+
+                        <span>
+                            Input Neurons
+                        </span>
+
+                        <strong>
+                            3
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-stat">
+
+                        <span>
+                            Hidden Neurons
+                        </span>
+
+                        <strong>
+                            8
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-stat">
+
+                        <span>
+                            Output Neurons
+                        </span>
+
+                        <strong>
+                            1
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Training Button -->
+
+                <div style="margin-top: 24px;">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="trainNeuralNetwork()">
+
+                        Train Neural Network
+
+                    </button>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div
+                    id="trainingStatus"
+                    class="status"
+                    style="margin-top: 20px;">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TRAINING RESULTS
+             ========================= -->
+
+        <section class="section">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Training Results
+                        </h2>
+
+                        <p>
+                            Results from the neural network training process.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="trainingResults">
+
+                    <div class="result-empty">
+
+                        <div class="icon-circle">
+                            NN
+                        </div>
+
+                        <h3>
+                            No Training Results Yet
+                        </h3>
+
+                        <p>
+                            Train the neural network to view
+                            accuracy, loss and training information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 AIVision • Artificial Intelligence Platform
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+
+    <script>
+
+        function trainNeuralNetwork() {
+
+            const status =
+                document.getElementById("trainingStatus");
+
+            const results =
+                document.getElementById("trainingResults");
+
+
+            /* Show training status */
+
+            status.className = "status info show";
+
+            status.textContent =
+                "Training neural network...";
+
+
+            /* Show loading panel */
+
+            results.innerHTML = `
+
+                <div class="result-empty">
+
+                    <div class="spinner"></div>
+
+                    <h3>
+                        Training Neural Network
+                    </h3>
+
+                    <p>
+                        Please wait while the model is being trained.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            /* Call Flask API */
+
+            fetch("/api/deep-learning/train", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({})
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data.success) {
+
+                    status.className =
+                        "status success show";
+
+                    status.textContent =
+                        "Neural network trained successfully.";
+
+
+                    results.innerHTML = `
+
+                        <div class="result-header">
+
+                            <div>
+
+                                <span class="result-label">
+                                    MODEL
+                                </span>
+
+                                <h3>
+                                    Neural Network
+                                </h3>
+
+                            </div>
+
+                            <span class="status success show">
+                                ✓ Completed
+                            </span>
+
+                        </div>
+
+
+                        <div class="stats-grid">
+
+                            <div class="result-stat">
+
+                                <span>
+                                    Accuracy
+                                </span>
+
+                                <strong>
+                                    ${data.accuracy ?? "N/A"}%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="result-stat">
+
+                                <span>
+                                    Loss
+                                </span>
+
+                                <strong>
+                                    ${data.loss ?? "N/A"}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="result-stat">
+
+                                <span>
+                                    Training Samples
+                                </span>
+
+                                <strong>
+                                    ${data.training_samples ?? "N/A"}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="result-message">
+
+                            <strong>
+                                Result:
+                            </strong>
+
+                            ${data.message ?? "Training completed successfully."}
+
+                        </div>
+
+                    `;
+
+                }
+
+                else {
+
+                    status.className =
+                        "status error show";
+
+                    status.textContent =
+                        data.error || "Training failed.";
+
+
+                    results.innerHTML = `
+
+                        <div class="result-empty">
+
+                            <h3>
+                                Training Failed
+                            </h3>
+
+                            <p>
+                                ${data.error || "An error occurred during training."}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                }
+
+            })
+
+            .catch(error => {
+
+                status.className =
+                    "status error show";
+
+                status.textContent =
+                    "Could not connect to the Flask server.";
+
+
+                results.innerHTML = `
+
+                    <div class="result-empty">
+
+                        <h3>
+                            Connection Error
+                        </h3>
+
+                        <p>
+                            ${error.message}
+                        </p>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

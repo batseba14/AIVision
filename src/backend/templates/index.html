@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vision | Home</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+     ========================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <div class="logo">
+
+            <span class="logo-icon">AI</span>
+
+            <span>Vision</span>
+
+        </div>
+
+
+        <div class="nav-menu">
+
+            <!-- HOME -->
+            <a href="{{ url_for('index') }}"
+               class="active">
+                Home
+            </a>
+
+            <!-- DASHBOARD -->
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <!-- MACHINE LEARNING -->
+            <a href="{{ url_for('ml_page') }}">
+                Machine Learning
+            </a>
+
+            <!-- DEEP LEARNING -->
+            <a href="{{ url_for('deep_learning') }}">
+                Deep Learning
+            </a>
+
+            <!-- ANALYTICS -->
+            <a href="{{ url_for('analytics') }}">
+                Analytics
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO SECTION
+     ========================= -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <span class="badge">
+            AI & MACHINE LEARNING PLATFORM
+        </span>
+
+
+        <h1>
+            A machine learning platform
+            <span>you can actually use.</span>
+        </h1>
+
+
+        <p>
+            Load real datasets, train multiple machine learning
+            models, and inspect your results through one platform.
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a href="{{ url_for('dashboard') }}"
+               class="btn btn-primary">
+
+                Open Dashboard
+
+            </a>
+
+
+            <a href="{{ url_for('ml_page') }}"
+               class="btn btn-secondary">
+
+                View Models
+
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             HERO STATISTICS
+             ========================= -->
+
+        <div class="hero-stats">
+
+            <div class="cell">
+
+                <div class="value">
+                    4
+                </div>
+
+                <div class="label">
+                    ML Models
+                </div>
+
+            </div>
+
+
+            <div class="cell">
+
+                <div class="value">
+                    500+
+                </div>
+
+                <div class="label">
+                    Training Samples
+                </div>
+
+            </div>
+
+
+            <div class="cell">
+
+                <div class="value">
+                    3-8-1
+                </div>
+
+                <div class="label">
+                    Neural Network
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PLATFORM FEATURES
+     ========================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="page-header">
+
+            <div>
+
+                <span class="badge">
+                    PLATFORM FEATURES
+                </span>
+
+                <h2>
+                    What's Included
+                </h2>
+
+                <p>
+                    Machine learning and AI tools in one interface.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid">
+
+
+            <!-- CLASSIFICATION -->
+
+            <div class="card">
+
+                <div class="num">
+                    01
+                </div>
+
+                <h3>
+                    Classification
+                </h3>
+
+                <p>
+                    Random Forest classification for predicting
+                    categories from labelled data.
+                </p>
+
+            </div>
+
+
+            <!-- REGRESSION -->
+
+            <div class="card">
+
+                <div class="num">
+                    02
+                </div>
+
+                <h3>
+                    Regression
+                </h3>
+
+                <p>
+                    Random Forest regression for predicting
+                    continuous numerical values.
+                </p>
+
+            </div>
+
+
+            <!-- ANOMALY DETECTION -->
+
+            <div class="card">
+
+                <div class="num">
+                    03
+                </div>
+
+                <h3>
+                    Anomaly Detection
+                </h3>
+
+                <p>
+                    Isolation Forest for identifying unusual
+                    or potentially anomalous observations.
+                </p>
+
+            </div>
+
+
+            <!-- NEURAL NETWORK -->
+
+            <div class="card">
+
+                <div class="num">
+                    04
+                </div>
+
+                <h3>
+                    Neural Network
+                </h3>
+
+                <p>
+                    A neural network with three input features,
+                    an eight-neuron hidden layer and an output layer.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 AIVision • Artificial Intelligence Platform
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
